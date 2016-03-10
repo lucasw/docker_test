@@ -1,9 +1,8 @@
-FROM ubuntu:14.04
+FROM ssh_server:latest
 # Could just run the install script directly
 # https://github.com/ros-infrastructure/buildfarm_deployment_config/blob/master/install_prerequisites.bash
 RUN apt-get update && \
   apt-get -y install \
-          openssh-server \
           git \
           ruby ruby1.9.1-dev make
 EXPOSE 22

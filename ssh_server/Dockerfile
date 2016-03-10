@@ -7,5 +7,6 @@ RUN mkdir /var/run/sshd
 # RUN useradd -ms /bin/bash -p newuser newuser
 RUN useradd -ms /bin/bash newuser
 RUN echo 'newuser:newuser' | chpasswd
+RUN adduser newuser sudo
 EXPOSE 22
 CMD ["/usr/sbin/sshd", "-D"]
