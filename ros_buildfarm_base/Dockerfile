@@ -5,12 +5,10 @@ RUN apt-get update && \
   apt-get -y install \
           git \
           ruby ruby1.9.1-dev make
-EXPOSE 22
-CMD ["/usr/sbin/sshd", "-D"]
 RUN gem install puppet -v 3.7 --no-rdoc --no-ri
 RUN gem install librarian-puppet --no-rdoc --no-ri
 
 RUN apt-get -y install python3-pip
 RUN pip3 install -U pip
 RUN librarian-puppet config rsync true --global
-CMD ls -al
+# CMD ["/usr/sbin/sshd", "-D"]
