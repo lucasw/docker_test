@@ -40,15 +40,19 @@ Then install:
 
 ## Create docker images
 
+Build all the following images:
+
   git clone https://github.com/lucasw/docker_test.git
   cd docker_test
   docker build -t ssh_server ssh_server
   docker build -t ros_buildfarm_base ros_buildfarm_base
   docker build -t ros_buildfarm_master ros_buildfarm_master
+  docker build -t ros_buildfarm_repo ros_buildfarm_repo
+  docker build -t ros_buildfarm_slave ros_buildfarm_slave
 
-It should be fine to run the docker builds in parallel in different terminals.
+It should be fine to run the docker master/repo/slave builds in parallel in different terminals.
 
-(or does docker rebuild parents automatically if children are rebuilt?)
+(TODO does docker rebuild parents automatically if children are rebuilt?)
 
 Also rerun the docker build instructions when the Dockerfiles change.
 
