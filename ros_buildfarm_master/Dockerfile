@@ -1,6 +1,8 @@
 FROM ros_buildfarm_base:latest
 # Could just run the install script directly
 # https://github.com/ros-infrastructure/buildfarm_deployment_config/blob/master/install_prerequisites.bash
+EXPOSE 80
+EXPOSE 443
 RUN cd /root && git clone https://github.com/lucasw/buildfarm_deployment_config.git && \
     cd buildfarm_deployment_config && ./reconfigure.bash master
 # TODO something in creates the ability to install jenkins but fails
@@ -14,5 +16,3 @@ RUN apt-get install -y jenkins
 #RUN cd /root/buildfarm_deployment_config && ./reconfigure.bash master
 #RUN cd /root/buildfarm_deployment_config && ./reconfigure_finish.bash master
 # TODO is the exposed too late?  Does order matter here?
-EXPOSE 80
-EXPOSE 443

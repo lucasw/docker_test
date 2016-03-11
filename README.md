@@ -54,6 +54,16 @@ Also rerun the docker build instructions when the Dockerfiles change.
 
 ## Setup
 
+Add to /etc/hosts:
+
+    172.18.0.30 custom-master
+    172.18.0.31 custom-repo
+    172.18.0.32 custom-slave
+
+The 'Running puppet' stage at the end may take a long time- 10 minutes on my laptop.
+
+### Launch containers
+
 Network setup::
 
     docker network create --subnet=172.18.0.0/16 bfnet
@@ -67,6 +77,50 @@ Need to copy in ssh files?
 
 TODO set mac addresses to be consistent with --mac-address
 
+### Get processes running inside containers
+
+For reasons that need to be discovered it is necessary to rerun the ./reconfigure.bash steps in a live container- these steps were run initially when the Dockerfiles were processed, but perhaps processes that are launched by them are not automatically relaunced when the container is set up.
+TODO Need to fix Dockerfiles so this isn't necessary.
+
+  ssh newuser@custom-master
+  # password is also `newuser`
+  sudo su
+  cd /root/buildfarm_deployment_config
+  ./reconfigure.bash master
+  ./reconfigure_finish.bash master
+  exit
+
+  ssh newuser@custom-repo
+  # password is also `newuser`
+  sudo su
+  cd /root/buildfarm_deployment_config
+  ./reconfigure.bash repo
+  ./reconfigure_finish.bash repo
+
+  ssh newuser@custom-slave
+  # password is also `newuser`
+  sudo su
+  cd /root/buildfarm_deployment_config
+  ./reconfigure.bash slave
+  ./reconfigure_finish.bash slave
+
+
+'Running puppet' should be much quicker now, around a minute.
+
+So the above steps will have an effect as long as the container exists- if it is removed then that
+
+## Results
+
+http://custom-master should show a running jenkins instance inside the master container, and building_repository should be visible as an executor.
+The slave should also be visible, but last I tried it did not show up- TODO debug that, probably something misconfigured about it.
+
+## Next
+
+generate_all_jobs.py from the host (or any computer that can talk to custom-master).
+It failed when trying to run it in the virtual environment in custom-repo.
+TODO document that failure.
+
+## Misc
 
 Development log for this is here: http://lucasw.github.io/docker/
 It can't be followed directly but useful commands and examples of command output are there.
