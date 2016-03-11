@@ -56,7 +56,7 @@ It should be fine to run the docker master/repo/slave builds in parallel in diff
 
 Also rerun the docker build instructions when the Dockerfiles change.
 
-## Setup
+## Network Setup
 
 Add to /etc/hosts:
 
@@ -86,28 +86,34 @@ TODO set mac addresses to be consistent with --mac-address
 For reasons that need to be discovered it is necessary to rerun the ./reconfigure.bash steps in a live container- these steps were run initially when the Dockerfiles were processed, but perhaps processes that are launched by them are not automatically relaunced when the container is set up.
 TODO Need to fix Dockerfiles so this isn't necessary.
 
-  ssh newuser@custom-master
-  # password is also `newuser`
-  sudo su
-  cd /root/buildfarm_deployment_config
-  ./reconfigure.bash master
-  ./reconfigure_finish.bash master
-  exit
+Ssh into each container:
 
-  ssh newuser@custom-repo
-  # password is also `newuser`
-  sudo su
-  cd /root/buildfarm_deployment_config
-  ./reconfigure.bash repo
-  ./reconfigure_finish.bash repo
+    ssh newuser@custom-master
+    # password is also `newuser`
+    sudo su
+    cd /root/buildfarm_deployment_config
+    ./reconfigure.bash master
+    ./reconfigure_finish.bash master
+    exit
+    exit
 
-  ssh newuser@custom-slave
-  # password is also `newuser`
-  sudo su
-  cd /root/buildfarm_deployment_config
-  ./reconfigure.bash slave
-  ./reconfigure_finish.bash slave
+    ssh newuser@custom-repo
+    # password is also `newuser`
+    sudo su
+    cd /root/buildfarm_deployment_config
+    ./reconfigure.bash repo
+    ./reconfigure_finish.bash repo
+    exit
+    exit
 
+    ssh newuser@custom-slave
+    # password is also `newuser`
+    sudo su
+    cd /root/buildfarm_deployment_config
+    ./reconfigure.bash slave
+    ./reconfigure_finish.bash slave
+    exit
+    exit
 
 'Running puppet' should be much quicker now, around a minute.
 
@@ -123,6 +129,11 @@ The slave should also be visible, but last I tried it did not show up- TODO debu
 generate_all_jobs.py from the host (or any computer that can talk to custom-master).
 It failed when trying to run it in the virtual environment in custom-repo.
 TODO document that failure.
+
+## Debug
+
+Look at /var/log/puppet.log when things are not operating correctly.
+The jenkins log and apache log also may be useful.
 
 ## Misc
 
