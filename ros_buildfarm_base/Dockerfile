@@ -4,6 +4,7 @@ FROM ssh_server:latest
 RUN apt-get update && \
   apt-get -y install \
           git \
+          vim \
           ruby ruby1.9.1-dev make
 RUN gem install puppet -v 3.7 --no-rdoc --no-ri
 RUN gem install librarian-puppet --no-rdoc --no-ri
