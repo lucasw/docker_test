@@ -8,5 +8,8 @@ RUN mkdir /var/run/sshd
 RUN useradd -ms /bin/bash newuser
 RUN echo 'newuser:newuser' | chpasswd
 RUN adduser newuser sudo
+COPY ssh_host* /etc/ssh/
+RUN chmod 600 /etc/ssh/ssh_host_ecdsa_key
+RUN chmod 444 /etc/ssh/ssh_host_ecdsa_key.pub
 EXPOSE 22
 CMD ["/usr/sbin/sshd", "-D"]
