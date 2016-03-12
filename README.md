@@ -76,7 +76,7 @@ Network setup::
 
 Still working on setting up slave properly, the docker binding isn't working yet:
 
-    docker run --net bfnet --ip 172.18.0.32 --hostname custom-slave --add-host custom-master:172.18.0.30 --add-host custom-repo:172.18.0.31 -d -P --name slave0 -v /var/run/docker.sock:/var/run/docker.sock -v $(which docker):/usr/bin/docker ros_buildfarm_slave
+    docker run --net bfnet --ip 172.18.0.32 --hostname custom-slave --add-host custom-master:172.18.0.30 --add-host custom-repo:172.18.0.31 -d -P --name slave0 -v /var/run/docker.sock:/var/run/docker.sock ros_buildfarm_slave
 
 
 TODO how to make sure keyscan -H is consistent?
