@@ -42,13 +42,13 @@ Then install:
 
 Build all the following images:
 
-  git clone https://github.com/lucasw/docker_test.git
-  cd docker_test
-  docker build -t ssh_server ssh_server
-  docker build -t ros_buildfarm_base ros_buildfarm_base
-  docker build -t ros_buildfarm_master ros_buildfarm_master
-  docker build -t ros_buildfarm_repo ros_buildfarm_repo
-  docker build -t ros_buildfarm_slave ros_buildfarm_slave
+    git clone https://github.com/lucasw/docker_test.git
+    cd docker_test
+    docker build -t ssh_server ssh_server
+    docker build -t ros_buildfarm_base ros_buildfarm_base
+    docker build -t ros_buildfarm_master ros_buildfarm_master
+    docker build -t ros_buildfarm_repo ros_buildfarm_repo
+    docker build -t ros_buildfarm_slave ros_buildfarm_slave
 
 It should be fine to run the docker master/repo/slave builds in parallel in different terminals.
 
